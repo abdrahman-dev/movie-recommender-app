@@ -1,0 +1,169 @@
+/* Main container */
+.favorites {
+  padding: 2rem 2rem 4rem 2rem;
+  width: 100%;
+  box-sizing: border-box;
+  min-height: 70vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.favorites h2 {
+  margin-bottom: 3rem;
+  text-align: center;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #ffffff;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+  letter-spacing: 0.5px;
+  animation: slideDown 0.5s ease-out;
+}
+
+/* Movies Grid */
+.movies-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 2rem;
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* Animation for new favorites being added */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.movies-grid > * {
+  animation: fadeInScale 0.4s ease-out forwards;
+  animation-fill-mode: both;
+}
+
+.movies-grid > :nth-child(1) { animation-delay: 0.05s; }
+.movies-grid > :nth-child(2) { animation-delay: 0.1s; }
+.movies-grid > :nth-child(3) { animation-delay: 0.15s; }
+.movies-grid > :nth-child(4) { animation-delay: 0.2s; }
+.movies-grid > :nth-child(n+5) { animation-delay: 0.25s; }
+
+
+/* Empty State */
+.favorites-empty {
+  text-align: center;
+  padding: 4rem 2rem;
+  background: linear-gradient(135deg, rgba(229, 9, 20, 0.08) 0%, rgba(255, 255, 255, 0.03) 100%);
+  border: 1px solid rgba(229, 9, 20, 0.2);
+  border-radius: 16px;
+  margin: auto;
+  max-width: 500px;
+  animation: fadeIn 0.5s ease-out;
+  backdrop-filter: blur(10px);
+}
+
+.favorites-empty h2 {
+  margin-bottom: 1.5rem;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #e50914;
+  letter-spacing: 0.3px;
+}
+
+.favorites-empty p {
+  color: #b0b0b0;
+  font-size: 1.1rem;
+  line-height: 1.8;
+  font-weight: 300;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .movies-grid {
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .favorites {
+    padding: 1.5rem;
+  }
+
+  .favorites h2 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .movies-grid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 1rem;
+  }
+
+  .favorites-empty {
+    padding: 3rem 1.5rem;
+    border-radius: 12px;
+  }
+
+  .favorites-empty h2 {
+    font-size: 1.5rem;
+  }
+
+  .favorites-empty p {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .favorites {
+    padding: 1rem;
+  }
+
+  .favorites h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .movies-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+  }
+
+  .favorites-empty {
+    padding: 2rem 1rem;
+  }
+
+  .favorites-empty h2 {
+    font-size: 1.3rem;
+  }
+
+  .favorites-empty p {
+    font-size: 0.9rem;
+  }
+}

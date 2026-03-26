@@ -1,0 +1,148 @@
+/* ============================================
+   DESIGN TOKENS — edit these to retheme the
+   entire app from one place
+   ============================================ */
+:root {
+  /* Colors */
+  --clr-bg:          #0f1117;
+  --clr-surface:     #1a1d27;
+  --clr-surface-2:   #22263a;
+  --clr-border:      rgba(255, 255, 255, 0.07);
+  --clr-accent:      #6c63ff;
+  --clr-accent-glow: rgba(108, 99, 255, 0.18);
+  --clr-text:        #e8e8f0;
+  --clr-text-muted:  #8b8fa8;
+
+  /* Spacing scale */
+  --space-xs:  0.25rem;
+  --space-sm:  0.5rem;
+  --space-md:  1rem;
+  --space-lg:  1.5rem;
+  --space-xl:  2rem;
+  --space-2xl: 3rem;
+
+  /* Layout */
+  --navbar-height: 64px;
+  --content-max-w: 1200px;
+
+  /* Motion */
+  --transition-fast:   150ms ease;
+  --transition-normal: 250ms ease;
+
+  /* Radius */
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+}
+
+/* ============================================
+   RESET & BASE
+   ============================================ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  height: 100%;
+  scroll-behavior: smooth;
+  /* Prevent layout shift from scrollbar appearing */
+  scrollbar-gutter: stable;
+}
+
+body {
+  height: 100%;
+  background-color: var(--clr-bg);
+  color: var(--clr-text);
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  font-size: 1rem;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Nice custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--clr-bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--clr-surface-2);
+  border-radius: 99px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--clr-accent);
+}
+
+/* ============================================
+   APP SHELL — the outermost wrapper
+   ============================================ */
+.main-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+
+  /* Subtle radial glow from the top — gives depth */
+  background:
+    radial-gradient(
+      ellipse 80% 40% at 50% -10%,
+      var(--clr-accent-glow),
+      transparent
+    ),
+    var(--clr-bg);
+}
+
+/* ============================================
+   MAIN CONTENT AREA
+   below the NavBar
+   ============================================ */
+.main-content {
+  flex: 1;                          /* fills leftover vertical space */
+  width: 100%;
+  padding-top: calc(var(--navbar-height) + var(--space-lg));
+  padding-inline: var(--space-xl);
+  padding-bottom: var(--space-2xl);
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+
+  /* Constrain content width and center it */
+  max-width: var(--content-max-w);
+  margin-inline: auto;
+
+  /* Fade-in on route mount */
+  animation: fadeUp 0.35s var(--transition-normal) both;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ============================================
+   RESPONSIVE BREAKPOINTS
+   ============================================ */
+@media (max-width: 768px) {
+  .main-content {
+    padding-inline: var(--space-md);
+    padding-top: calc(var(--navbar-height) + var(--space-md));
+  }
+}
+
+@media (max-width: 480px) {
+  .main-content {
+    padding-inline: var(--space-sm);
+  }
+}
