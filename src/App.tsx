@@ -3,6 +3,7 @@ import Home from './pages/Home'
 import Favorites from './pages/Favorites'
 import { Routes, Route, useLocation } from 'react-router-dom';
 import NavBar from './components/NavBar';
+import Footer from './components/footer';
 
 function App() {
   const location = useLocation();
@@ -19,6 +20,7 @@ function App() {
           <Route path="/favorites" element={<Favorites />} />
         </Routes>
       </div>
+        <Footer />
     </main>
   );
 }
