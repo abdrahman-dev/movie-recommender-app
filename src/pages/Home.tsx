@@ -46,7 +46,7 @@ const [movies, setMovies] = useState<Movie[]>([]);
             await fetchPopularMovies();
             return;
         }
-console.log("ENV TEST:", import.meta.env.VITE_API_URL);
+        
         setLoading(true);
         setError(null);
         try {

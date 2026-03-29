@@ -7,10 +7,6 @@ export const PopularMovies = async () => {
   return data.results
 }
 
-Object.entries(import.meta.env).forEach(([key, value]) => {
-  console.log(key, value);
-});
-
 export const SearchMovies = async (query: string) => {
   const response = await fetch(
     `${BASE_URL}/search/movie?api_key=${API_KEY}&query=${encodeURIComponent(query)}`

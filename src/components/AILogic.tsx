@@ -4,11 +4,11 @@ import MovieCard from "./MovieCard";
 import "../style/AIRecommendations.css";
 
 const fetchMovieData = async (title: string) => {
-  const API_KEY = import.meta.env.VITE_TMDB_API_KEY; 
-  const TMDB_SEARCH_URL = `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${encodeURIComponent(title)}`; 
+  const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
+  const TMDB_SEARCH_URL = `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${encodeURIComponent(title)}`;
   const res = await fetch(TMDB_SEARCH_URL);
   const data = await res.json();
-  return data.results[0]; 
+  return data.results[0];
 };
 
 function AIRecommendations() {
@@ -22,7 +22,7 @@ function AIRecommendations() {
   setLoading(true);
   try {
     const response = await fetch(
-      "https://movie-recommender-api-production-7d37.up.railway.app/recommend",
+      "" + import.meta.env.VITE_BACKEND_SERVER_RESPONSE,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -32,14 +32,23 @@ function AIRecommendations() {
       }
     );
 
-    const data = await response.json();
+const data = await response.json();
 
-   
-    const rawTitles = data.result; 
-    const titlesArray = rawTitles
-      .split(/\n|,/)          // نتعامل مع السطر الجديد أو الفواصل
-      .map((t: string) => t.trim()) // نشيل المسافات
-      .filter((t: string) => t.length > 0); // نتأكد انها مش فاضية
+console.log("AI RESPONSE:", data);
+
+if (!response.ok) {
+  console.error("Server Error:", data);
+  throw new Error(data.message || "Server error");
+}
+
+if (!data.result) {
+  throw new Error("No recommendations returned");
+}
+
+const titlesArray = data.result
+  .split(/\n|,/)
+  .map((t: string) => t.trim())
+  .filter((t: string) => t.length > 0);
 
     const moviePromises = titlesArray.map((title: string) => fetchMovieData(title));
     const finalMovies = (await Promise.all(moviePromises)).filter(m => m != null);
