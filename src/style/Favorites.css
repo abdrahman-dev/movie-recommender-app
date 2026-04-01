@@ -1,6 +1,8 @@
-/* Main container */
+/* ============================================
+   FAVORITES PAGE — Modern, Polished Design
+   ============================================ */
 .favorites {
-  padding: 2rem 2rem 4rem 2rem;
+  padding: var(--space-2xl) var(--space-xl) var(--space-3xl);
   width: 100%;
   box-sizing: border-box;
   min-height: 70vh;
@@ -8,31 +10,47 @@
   flex-direction: column;
 }
 
+/* Page Title */
 .favorites h2 {
-  margin-bottom: 3rem;
+  margin-bottom: var(--space-2xl);
   text-align: center;
-  font-size: 2.5rem;
+  font-family: 'Poppins', 'Inter', sans-serif;
+  font-size: clamp(2rem, 5vw, 2.75rem);
   font-weight: 700;
-  color: #ffffff;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
-  letter-spacing: 0.5px;
-  animation: slideDown 0.5s ease-out;
+  color: var(--clr-text);
+  letter-spacing: -0.02em;
+  animation: slideDown 0.6s ease-out;
 }
 
-/* Movies Grid */
+/* ============================================
+   MOVIES GRID — Staggered Animation
+   ============================================ */
 .movies-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 2rem;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: var(--space-xl);
   width: 100%;
   margin: 0 auto;
 }
 
-/* Animation for new favorites being added */
+/* Staggered fade-in animation for cards */
+.movies-grid > * {
+  animation: fadeInScale 0.5s ease-out forwards;
+  animation-fill-mode: both;
+}
+
+.movies-grid > :nth-child(1) { animation-delay: 0.05s; }
+.movies-grid > :nth-child(2) { animation-delay: 0.1s; }
+.movies-grid > :nth-child(3) { animation-delay: 0.15s; }
+.movies-grid > :nth-child(4) { animation-delay: 0.2s; }
+.movies-grid > :nth-child(5) { animation-delay: 0.25s; }
+.movies-grid > :nth-child(6) { animation-delay: 0.3s; }
+.movies-grid > :nth-child(n+7) { animation-delay: 0.35s; }
+
 @keyframes slideDown {
   from {
     opacity: 0;
-    transform: translateY(-20px);
+    transform: translateY(-30px);
   }
   to {
     opacity: 1;
@@ -43,58 +61,82 @@
 @keyframes fadeInScale {
   from {
     opacity: 0;
-    transform: scale(0.95);
+    transform: scale(0.9) translateY(20px);
   }
   to {
     opacity: 1;
-    transform: scale(1);
+    transform: scale(1) translateY(0);
   }
 }
 
-.movies-grid > * {
-  animation: fadeInScale 0.4s ease-out forwards;
-  animation-fill-mode: both;
-}
-
-.movies-grid > :nth-child(1) { animation-delay: 0.05s; }
-.movies-grid > :nth-child(2) { animation-delay: 0.1s; }
-.movies-grid > :nth-child(3) { animation-delay: 0.15s; }
-.movies-grid > :nth-child(4) { animation-delay: 0.2s; }
-.movies-grid > :nth-child(n+5) { animation-delay: 0.25s; }
-
-
-/* Empty State */
+/* ============================================
+   EMPTY STATE — Elegant Glassmorphism
+   ============================================ */
 .favorites-empty {
   text-align: center;
-  padding: 4rem 2rem;
-  background: linear-gradient(135deg, rgba(229, 9, 20, 0.08) 0%, rgba(255, 255, 255, 0.03) 100%);
-  border: 1px solid rgba(229, 9, 20, 0.2);
-  border-radius: 16px;
+  padding: var(--space-3xl) var(--space-2xl);
+  background: linear-gradient(
+    135deg,
+    rgba(139, 139, 255, 0.08) 0%,
+    rgba(255, 107, 157, 0.05) 50%,
+    rgba(255, 255, 255, 0.03) 100%
+  );
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-xl);
   margin: auto;
-  max-width: 500px;
-  animation: fadeIn 0.5s ease-out;
-  backdrop-filter: blur(10px);
+  max-width: 550px;
+  animation: fadeIn 0.6s ease-out;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Decorative gradient orb */
+.favorites-empty::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(
+    circle,
+    rgba(139, 139, 255, 0.1) 0%,
+    transparent 50%
+  );
+  animation: float 6s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes float {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(10px, 10px); }
 }
 
 .favorites-empty h2 {
-  margin-bottom: 1.5rem;
-  font-size: 2rem;
+  margin-bottom: var(--space-lg);
+  font-size: clamp(1.5rem, 4vw, 2rem);
   font-weight: 700;
-  color: #e50914;
-  letter-spacing: 0.3px;
+  color: var(--clr-primary-light);
+  letter-spacing: -0.01em;
+  position: relative;
+  z-index: 1;
 }
 
 .favorites-empty p {
-  color: #b0b0b0;
+  color: var(--clr-text-secondary);
   font-size: 1.1rem;
   line-height: 1.8;
-  font-weight: 300;
+  font-weight: 400;
+  position: relative;
+  z-index: 1;
 }
 
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(10px);
+    transform: translateY(15px);
   }
   to {
     opacity: 1;
@@ -102,33 +144,34 @@
   }
 }
 
-
-/* Responsive Design */
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
 @media (max-width: 1200px) {
   .movies-grid {
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: var(--space-lg);
   }
 }
 
 @media (max-width: 768px) {
   .favorites {
-    padding: 1.5rem;
+    padding: var(--space-xl) var(--space-md) var(--space-2xl);
   }
 
   .favorites h2 {
     font-size: 2rem;
-    margin-bottom: 2rem;
+    margin-bottom: var(--space-xl);
   }
 
   .movies-grid {
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    gap: 1rem;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: var(--space-md);
   }
 
   .favorites-empty {
-    padding: 3rem 1.5rem;
-    border-radius: 12px;
+    padding: var(--space-2xl) var(--space-xl);
+    border-radius: var(--radius-lg);
   }
 
   .favorites-empty h2 {
@@ -142,21 +185,22 @@
 
 @media (max-width: 480px) {
   .favorites {
-    padding: 1rem;
+    padding: var(--space-lg) var(--space-sm) var(--space-xl);
   }
 
   .favorites h2 {
     font-size: 1.5rem;
-    margin-bottom: 1.5rem;
+    margin-bottom: var(--space-lg);
   }
 
   .movies-grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 0.75rem;
+    gap: var(--space-sm);
   }
 
   .favorites-empty {
-    padding: 2rem 1rem;
+    padding: var(--space-xl) var(--space-md);
+    border-radius: var(--radius-md);
   }
 
   .favorites-empty h2 {
@@ -165,5 +209,6 @@
 
   .favorites-empty p {
     font-size: 0.9rem;
+    line-height: 1.6;
   }
 }

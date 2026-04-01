@@ -1,38 +1,72 @@
 /* ============================================
-   DESIGN TOKENS — edit these to retheme the
-   entire app from one place
+   DESIGN TOKENS — Modern, Scalable System
    ============================================ */
 :root {
-  /* Colors */
-  --clr-bg:          #0f1117;
-  --clr-surface:     #1a1d27;
-  --clr-surface-2:   #22263a;
-  --clr-border:      rgba(255, 255, 255, 0.07);
-  --clr-accent:      #6c63ff;
-  --clr-accent-glow: rgba(108, 99, 255, 0.18);
-  --clr-text:        #e8e8f0;
-  --clr-text-muted:  #8b8fa8;
+  /* Primary Colors - Modern Purple/Blue Palette */
+  --clr-primary:       #8b8bff;
+  --clr-primary-dark:  #6c63ff;
+  --clr-primary-light: #a5a5ff;
+  --clr-primary-glow:  rgba(139, 139, 255, 0.2);
 
-  /* Spacing scale */
-  --space-xs:  0.25rem;
-  --space-sm:  0.5rem;
-  --space-md:  1rem;
-  --space-lg:  1.5rem;
-  --space-xl:  2rem;
-  --space-2xl: 3rem;
+  /* Accent Colors */
+  --clr-accent:        #ff6b9d;
+  --clr-accent-glow:   rgba(255, 107, 157, 0.15);
+  --clr-success:       #4ade80;
+  --clr-warning:       #fbbf24;
+  --clr-error:         #f87171;
+
+  /* Background Colors - Deep Dark Theme */
+  --clr-bg:            #0a0a0f;
+  --clr-bg-secondary:  #12121a;
+  --clr-surface:       #1a1a24;
+  --clr-surface-2:     #22222e;
+  --clr-surface-3:     #2a2a38;
+
+  /* Text Colors */
+  --clr-text:          #f0f0f5;
+  --clr-text-secondary:#b8b8c8;
+  --clr-text-muted:    #6b6b7b;
+
+  /* Border Colors */
+  --clr-border:        rgba(255, 255, 255, 0.08);
+  --clr-border-light:  rgba(255, 255, 255, 0.12);
+
+  /* Spacing Scale (8px base) */
+  --space-xs:   0.25rem;   /* 4px */
+  --space-sm:   0.5rem;    /* 8px */
+  --space-md:   1rem;      /* 16px */
+  --space-lg:   1.5rem;    /* 24px */
+  --space-xl:   2rem;      /* 32px */
+  --space-2xl:  3rem;      /* 48px */
+  --space-3xl:  4rem;      /* 64px */
 
   /* Layout */
-  --navbar-height: 64px;
-  --content-max-w: 1200px;
+  --navbar-height: 72px;
+  --content-max-w: 1280px;
 
-  /* Motion */
-  --transition-fast:   150ms ease;
-  --transition-normal: 250ms ease;
+  /* Motion - Smooth, Professional */
+  --transition-fast:    150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal:  250ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow:    400ms cubic-bezier(0.4, 0, 0.2, 1);
 
-  /* Radius */
-  --radius-sm: 6px;
-  --radius-md: 12px;
-  --radius-lg: 20px;
+  /* Border Radius */
+  --radius-sm:   8px;
+  --radius-md:   12px;
+  --radius-lg:   16px;
+  --radius-xl:   24px;
+  --radius-full: 9999px;
+
+  /* Shadows - Layered Depth */
+  --shadow-sm:   0 2px 8px rgba(0, 0, 0, 0.3);
+  --shadow-md:   0 4px 16px rgba(0, 0, 0, 0.4);
+  --shadow-lg:   0 8px 32px rgba(0, 0, 0, 0.5);
+  --shadow-xl:   0 16px 48px rgba(0, 0, 0, 0.6);
+  --shadow-glow: 0 0 40px var(--clr-primary-glow);
+
+  /* Glassmorphism */
+  --glass-bg:        rgba(255, 255, 255, 0.05);
+  --glass-border:    rgba(255, 255, 255, 0.1);
+  --glass-blur:      20px;
 }
 
 /* ============================================
@@ -49,7 +83,6 @@
 html {
   height: 100%;
   scroll-behavior: smooth;
-  /* Prevent layout shift from scrollbar appearing */
   scrollbar-gutter: stable;
 }
 
@@ -57,73 +90,86 @@ body {
   height: 100%;
   background-color: var(--clr-bg);
   color: var(--clr-text);
-  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
   font-size: 1rem;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Nice custom scrollbar */
+/* Modern Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 8px;
+  height: 8px;
 }
+
 ::-webkit-scrollbar-track {
-  background: var(--clr-bg);
+  background: var(--clr-bg-secondary);
 }
+
 ::-webkit-scrollbar-thumb {
-  background: var(--clr-surface-2);
-  border-radius: 99px;
+  background: var(--clr-surface-3);
+  border-radius: var(--radius-full);
+  border: 2px solid var(--clr-bg-secondary);
 }
+
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--clr-accent);
+  background: var(--clr-primary);
 }
 
 /* ============================================
-   APP SHELL — the outermost wrapper
+   APP SHELL — Main Container with Depth
    ============================================ */
 .main-container {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
 
-  /* Subtle radial glow from the top — gives depth */
+  /* Multi-layer gradient background for depth */
   background:
     radial-gradient(
-      ellipse 80% 40% at 50% -10%,
+      ellipse 100% 50% at 50% 0%,
+      var(--clr-primary-glow),
+      transparent 60%
+    ),
+    radial-gradient(
+      ellipse 80% 40% at 80% 20%,
       var(--clr-accent-glow),
-      transparent
+      transparent 50%
+    ),
+    radial-gradient(
+      ellipse 60% 30% at 20% 80%,
+      rgba(139, 139, 255, 0.08),
+      transparent 50%
     ),
     var(--clr-bg);
 }
 
 /* ============================================
    MAIN CONTENT AREA
-   below the NavBar
    ============================================ */
 .main-content {
-  flex: 1;                          /* fills leftover vertical space */
+  flex: 1;
   width: 100%;
-  padding-top: calc(var(--navbar-height) + var(--space-lg));
+  padding-top: calc(var(--navbar-height) + var(--space-xl));
   padding-inline: var(--space-xl);
-  padding-bottom: var(--space-2xl);
+  padding-bottom: var(--space-3xl);
 
   display: flex;
   flex-direction: column;
-  gap: var(--space-lg);
+  gap: var(--space-xl);
 
-  /* Constrain content width and center it */
   max-width: var(--content-max-w);
   margin-inline: auto;
 
-  /* Fade-in on route mount */
-  animation: fadeUp 0.35s var(--transition-normal) both;
+  /* Smooth fade-in animation */
+  animation: fadeUp 0.5s var(--transition-normal) both;
 }
 
 @keyframes fadeUp {
   from {
     opacity: 0;
-    transform: translateY(12px);
+    transform: translateY(20px);
   }
   to {
     opacity: 1;
@@ -132,17 +178,64 @@ body {
 }
 
 /* ============================================
+   GLASSMORPHISM UTILITIES
+   ============================================ */
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border);
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-lg);
+}
+
+/* ============================================
    RESPONSIVE BREAKPOINTS
    ============================================ */
+@media (max-width: 1024px) {
+  .main-content {
+    padding-inline: var(--space-lg);
+  }
+}
+
 @media (max-width: 768px) {
   .main-content {
     padding-inline: var(--space-md);
-    padding-top: calc(var(--navbar-height) + var(--space-md));
+    padding-top: calc(var(--navbar-height) + var(--space-lg));
+    gap: var(--space-lg);
   }
 }
 
 @media (max-width: 480px) {
   .main-content {
     padding-inline: var(--space-sm);
+    padding-top: calc(var(--navbar-height) + var(--space-md));
+  }
+}
+
+/* ============================================
+   ACCESSIBILITY IMPROVEMENTS
+   ============================================ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  :root {
+    --clr-border: rgba(255, 255, 255, 0.2);
+    --clr-text-muted: #a0a0b0;
   }
 }

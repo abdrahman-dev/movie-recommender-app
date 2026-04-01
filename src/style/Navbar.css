@@ -1,96 +1,167 @@
+/* ============================================
+   MODERN NAVBAR — Glassmorphism Design
+   ============================================ */
 .navbar {
-  background-color: #000000;
-  padding: 1rem 2rem;
+  /* Glassmorphism background */
+  background: rgba(10, 10, 15, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--clr-border);
+
+  padding: var(--space-md) var(--space-xl);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 0 2px 8px rgba(229, 9, 20, 0.2);
   position: sticky;
   top: 0;
-  z-index: 100;
+  z-index: 1000;
+
+  /* Subtle shadow for depth */
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+  transition: all var(--transition-normal);
 }
 
+.navbar:hover {
+  background: rgba(10, 10, 15, 0.95);
+}
+
+/* Brand Logo */
 .navbar-brand {
-  font-size: 1.5rem;
-  font-weight: bold;
+  font-family: 'Poppins', 'Inter', sans-serif;
+  font-size: 1.75rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
 }
 
 .brand-link {
-  color: white;
+  color: var(--clr-text);
   text-decoration: none;
-  transition: color 0.2s;
+  transition: all var(--transition-normal);
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  position: relative;
+}
+
+.brand-link::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--clr-primary), var(--clr-accent));
+  transition: width var(--transition-normal);
+  border-radius: var(--radius-full);
 }
 
 .brand-link:hover {
-  color: #e50914;
+  color: var(--clr-primary-light);
+  transform: translateY(-2px);
 }
 
+.brand-link:hover::after {
+  width: 100%;
+}
+
+/* Navigation Links */
 .navbar-links {
   display: flex;
-  gap: 2rem;
+  gap: var(--space-xs);
   list-style: none;
 }
 
 .nav-link {
-  color: #ffffff;
-  font-size: 1rem;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
+  color: var(--clr-text-secondary);
+  font-size: 0.95rem;
+  font-weight: 500;
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-md);
   text-decoration: none;
-  transition: all 0.2s;
+  transition: all var(--transition-normal);
   position: relative;
-  border-bottom: 2px solid transparent;
+  overflow: hidden;
+}
+
+/* Hover effect with gradient underline */
+.nav-link::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--clr-primary), var(--clr-accent));
+  transition: all var(--transition-normal);
+  transform: translateX(-50%);
+  border-radius: var(--radius-full);
 }
 
 .nav-link:hover {
-  background-color: rgba(255, 255, 255, 0.1);
-  color: #e50914;
+  color: var(--clr-text);
+  background: rgba(255, 255, 255, 0.05);
+  transform: translateY(-2px);
 }
 
+.nav-link:hover::before {
+  width: 60%;
+}
+
+/* Active state */
 .nav-link.active {
-  color: #e50914;
-  border-bottom: 2px solid #e50914;
+  color: var(--clr-primary-light);
+  background: rgba(139, 139, 255, 0.1);
 }
 
+.nav-link.active::before {
+  width: 60%;
+  background: var(--clr-primary);
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
 @media (max-width: 768px) {
   .navbar {
-    padding: 1rem;
+    padding: var(--space-sm) var(--space-md);
     flex-wrap: wrap;
-    gap: 1rem;
+    gap: var(--space-sm);
   }
 
   .navbar-brand {
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     width: 100%;
+    text-align: center;
   }
 
   .navbar-links {
-    gap: 1rem;
+    gap: var(--space-xs);
     width: 100%;
     justify-content: center;
+    flex-wrap: wrap;
   }
 
   .nav-link {
-    padding: 0.5rem 0.75rem;
-    font-size: 0.9rem;
+    padding: var(--space-xs) var(--space-sm);
+    font-size: 0.875rem;
   }
 }
 
 @media (max-width: 480px) {
   .navbar {
-    padding: 0.75rem;
+    padding: var(--space-xs) var(--space-sm);
   }
 
   .navbar-brand {
-    font-size: 1rem;
+    font-size: 1.2rem;
   }
 
   .navbar-links {
-    gap: 0.5rem;
+    gap: 4px;
   }
 
   .nav-link {
-    padding: 0.4rem 0.6rem;
-    font-size: 0.85rem;
+    padding: 6px 10px;
+    font-size: 0.8rem;
   }
 }
